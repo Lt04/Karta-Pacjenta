@@ -15,6 +15,16 @@
             <div id="FindPropContent" class="container col-auto">
                 <form>
                     <button onclick=ShowPatList() type="button">Pokaż listę pacjentów</button>
+                    <small id="starterr" class="form-text text-muted"></small>
+                </form>
+            </div>
+        </div>
+        <div id="PatList">
+            <div id="PatListOverlay" class="overlays"></div>
+            <div id="PatListContent" class="container col-auto">
+                <form>
+                    <small id="tab" class="form-text text-muted"></small>
+                    <button onclick=NextPage() type="button">Następna strona</button>
                 </form>
             </div>
         </div>

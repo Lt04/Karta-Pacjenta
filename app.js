@@ -3,9 +3,8 @@ const express       = require('express');
 const app           = express();
 var server          = require('http').Server(options, app);
 const bodyParser    = require('body-parser');
-var Fhir = require('fhir').Fhir;
-
-var client = new Fhir({
+var mkFhir = require('fhir.js');
+var client = mkFhir({
     baseUrl: 'http://hapi.fhir.org/baseR4/Patient?_pretty=true'
 });
 
@@ -22,7 +21,25 @@ app.use(function(req, res, next) {
 server.listen(80)
 
 app.post('/showpatlist', function(request, response){
-    console.log(client)
+    client
+    .search( {type: 'Patient', query: { 'birthdate': '1974' }})
+    .then(function(res){
+        var bundle = res.data;
+        console.log(bundle.entry[0].resource.birthDate)
+        var count = (bundle.entry && bundle.entry.length) || 0;
+        console.log("# Patients born in 1974: ", count);
+    })
+    .catch(function(res){
+        // Error responses
+        if (res.status){
+            console.log('Error', res.status);
+        }
+
+        // Errors
+        if (res.message){
+            console.log('Error', res.message);
+        }
+    });
     response.send(200)
     return
 })
