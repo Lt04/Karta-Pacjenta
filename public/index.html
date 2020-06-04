@@ -12,19 +12,23 @@
     <body>
         <div id="Startowy">
             <div id="StartowyOverlay" class="overlays"></div>
-            <div id="FindPropContent" class="container col-auto">
+            <div id="StartowyContent" class="container col-auto">
                 <form>
-                    <button onclick=ShowPatList() type="button">Pokaż listę pacjentów</button>
+                    Searched lastname: 
+                    <input class="form-control" id="lastname"> 
+                    <button onclick=ShowPatList() type="button">Patients</button>
                     <small id="starterr" class="form-text text-muted"></small>
+                    <button onclick=PrevPage() type="button">Previous Page</button>
+                    <button onclick=NextPage() type="button">Next Page</button>
                 </form>
             </div>
         </div>
-        <div id="PatList">
-            <div id="PatListOverlay" class="overlays"></div>
-            <div id="PatListContent" class="container col-auto">
+        <div id="PatDetails">
+            <div id="PatDetailsOverlay" class="overlays"></div>
+            <div id="PatDetailsContent" class="container col-auto">
                 <form>
-                    <small id="tab" class="form-text text-muted"></small>
-                    <button onclick=NextPage() type="button">Następna strona</button>
+                    <small id="patdet" class="form-text text-muted"></small>
+                    <button onclick=DetailsHide() type="button" class="btn btn-danger">Back</button>
                 </form>
             </div>
         </div>
