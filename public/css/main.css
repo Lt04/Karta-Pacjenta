@@ -52,6 +52,11 @@
     color: white;
   }
 
+  table td {
+    padding-top: 1px;
+    padding-bottom:1px;
+  }
+
   #PatDetails{
     display: none;
   }

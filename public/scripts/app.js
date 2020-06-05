@@ -1,11 +1,9 @@
-var page = 0
 $(function(){
     $("#Startowy").show()
 })
 
 function ShowPatList(){
     axios.post('/showpatlist',{
-        page: page,
         name: $("#lastname").val()
     })
     .then(function(response){
@@ -14,30 +12,18 @@ function ShowPatList(){
 }
 
 function NextPage(){
-    page += 1
-    axios.post('/showpatlist',{
-        page: page,
-        name: $("#lastname").val()
+    axios.post('/nextpag',{
     })
     .then(function(response){
         $("#starterr").html(response.data)
-    })
-    .catch(function(error){
-        page -= 1
     })
 }
 
 function PrevPage(){
-    page -= 1
-    axios.post('/showpatlist',{
-        page: page,
-        name: $("#lastname").val()
+    axios.post('/prevpag',{
     })
     .then(function(response){
         $("#starterr").html(response.data)
-    })
-    .catch(function(error){
-        page += 1
     })
 }
 

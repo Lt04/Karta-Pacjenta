@@ -23,22 +23,13 @@ var bundle
 server.listen(80)
 
 app.post('/showpatlist', function(request, response){
-    var start = request.body.page*10
-    var stop = start + 10
     if(request.body.name == ""){
         var searchPatients = client
         .search( {type: 'Patient', query: { }})
         .then(function(res) {
             bundle = res.data
-            if(start >= res.data.entry.length || start < 0){
-                response.send(403)
-                return
-            }
             var html_resp = "<table><tr><th>Given name</th><th>Family name</th><th>Details</th></tr>"
-            for(var i = start; i < stop; i++){
-                if(res.data.entry[i] == undefined){
-                    break
-                }
+            for(var i = 0; i < res.data.entry.length; i++){
                 html_resp += "<tr><td>" + res.data.entry[i].resource.name[0].given[0] + "</td><td>" + res.data.entry[i].resource.name[0].family + "</td>" + 
                 "<td><button onclick=details('" + res.data.entry[i].resource.id + "') type='button' class='btn btn-light'>Details</button></td></tr>"
             }
@@ -51,15 +42,9 @@ app.post('/showpatlist', function(request, response){
         var searchPatients = client
         .search( {type: 'Patient', query: {family: request.body.name }})
         .then(function(res) {
-            if(start >= res.data.entry.length || start < 0){
-                response.send(403)
-                return
-            }
+            bundle = res.data
             var html_resp = "<table><tr><th>Given name</th><th>Family name</th><th>Details</th></tr>"
-            for(var i = start; i < stop; i++){
-                if(res.data.entry[i] == undefined){
-                    break
-                }
+            for(var i = 0; i < res.data.entry.length; i++){
                 html_resp += "<tr><td>" + res.data.entry[i].resource.name[0].given[0] + "</td><td>" + res.data.entry[i].resource.name[0].family + "</td>" + 
                 "<td><button onclick=details('" + res.data.entry[i].resource.id + "') type='button' class='btn btn-light'>Details</button></td></tr>"
             }
@@ -67,6 +52,54 @@ app.post('/showpatlist', function(request, response){
             response.send(200, html_resp)
             return
         })
+    }
+})
+
+app.post('/nextpag', function(request, response){
+    var hasNext = false;
+    for(var link of bundle.link) {
+        if(link.relation == "next") {
+            hasNext = true;
+            break;
+        }
+    }
+    if(hasNext) {
+        client.nextPage({bundle: bundle})
+            .then(function(res) {
+                bundle = res.data
+                var html_resp = "<table><tr><th>Given name</th><th>Family name</th><th>Details</th></tr>"
+                for(var i = 0; i < res.data.entry.length; i++){
+                html_resp += "<tr><td>" + res.data.entry[i].resource.name[0].given[0] + "</td><td>" + res.data.entry[i].resource.name[0].family + "</td>" + 
+                "<td><button onclick=details('" + res.data.entry[i].resource.id + "') type='button' class='btn btn-light'>Details</button></td></tr>"
+                }
+                html_resp += "</table>"
+                response.send(200, html_resp)
+                return
+            })
+    }
+})
+
+app.post('/prevpag', function(request, response){
+    var hasPrev = false;
+    for(var link of bundle.link) {
+        if(link.relation == "previous") {
+            hasPrev = true;
+            break;
+        }
+    }
+    if(hasPrev) {
+        client.prevPage({bundle: bundle})
+            .then(function(res) {
+                bundle = res.data
+                var html_resp = "<table><tr><th>Given name</th><th>Family name</th><th>Details</th></tr>"
+                for(var i = 0; i < res.data.entry.length; i++){
+                html_resp += "<tr><td>" + res.data.entry[i].resource.name[0].given[0] + "</td><td>" + res.data.entry[i].resource.name[0].family + "</td>" + 
+                "<td><button onclick=details('" + res.data.entry[i].resource.id + "') type='button' class='btn btn-light'>Details</button></td></tr>"
+                }
+                html_resp += "</table>"
+                response.send(200, html_resp)
+                return
+            })
     }
 })
 
