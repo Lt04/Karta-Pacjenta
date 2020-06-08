@@ -28,7 +28,6 @@ function PrevPage(){
 }
 
 function details(id){
-    id = "pat1"
     $("#PatDetails").show()
     $("#Startowy").hide()
     axios.post('/patdet', {

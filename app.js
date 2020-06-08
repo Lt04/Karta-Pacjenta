@@ -5,7 +5,6 @@ var server          = require('http').Server(options, app);
 const bodyParser    = require('body-parser');
 var mkFhir = require('fhir.js');
 const baseServerUrl = 'http://hapi.fhir.org/baseR4';
-//const baseServerUrl = 'http://localhost:8080/baseR4';
 var client = mkFhir({
     baseUrl: baseServerUrl
 });
@@ -112,7 +111,6 @@ app.post('/resdet', function(request, response) {
         .then(function(fhirResp) {
             var resource = fhirResp.data
             var html_resp = "<h4 class='cardHeader'>" + resType + "</h4>"
-            html_resp += "<h4 class='cardHeader'>" + resId + "</h4>"
             html_resp += "<table>"
             var fieldsWithText = []
             if(resType == "Observation") {
