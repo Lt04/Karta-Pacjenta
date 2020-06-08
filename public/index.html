@@ -12,7 +12,7 @@
     <body>
         <div id="Startowy">
             <div id="StartowyOverlay" class="overlays"></div>
-            <div id="StartowyContent" class="container col-auto">
+            <div id="StartowyContent" class="container col-sm-3">
                 <form>
                     Searched lastname: 
                     <input class="form-control" id="lastname"> 
@@ -25,10 +25,31 @@
         </div>
         <div id="PatDetails">
             <div id="PatDetailsOverlay" class="overlays"></div>
-            <div id="PatDetailsContent" class="container col-auto">
+            <div class="row align-items-start">
+                <div id="PatDetailsContent" class="container col-sm-4 offset-sm-1">
+                    <h4 class="cardHeader">Patient details</h4>
+                    <form>
+                        <small id="patdet" class="form-text text-muted"></small>
+                        <button onclick=DetailsHide() type="button" class="btn btn-danger">Back</button>
+                    </form>
+                </div>
+                <div id="TimeLineContent" class="container col-sm-4 offset-sm-1">
+                    <h4 class="cardHeader">Medical events</h4>
+                    <form>
+                        <label for="dataMonth">Show month:</label>
+                        <input type="month" id="dataMonth" name="dataMonth">
+                        <button onclick=chooseTimeLineMonth() type="button" class="btn btn-danger">Submit</button>
+                    </form>
+                    <div id="TimeLine"></div>
+                </div>
+            </div>
+        </div>
+        <div id="ResDetails">
+            <div id="ResDetailsOverlay" class="overlays"></div>
+            <div id="ResDetailsContent" class="container col-sm-4">
                 <form>
-                    <small id="patdet" class="form-text text-muted"></small>
-                    <button onclick=DetailsHide() type="button" class="btn btn-danger">Back</button>
+                    <small id="resdet" class="form-text text-muted"></small>
+                    <button onclick=ResDetailsHide() type="button" class="btn btn-danger">Back</button>
                 </form>
             </div>
         </div>

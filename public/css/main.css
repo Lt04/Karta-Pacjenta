@@ -15,11 +15,12 @@
   .container {
     z-index: 1003;
     display: block;
-    position: absolute;
+    margin-top: 10px;
+    /*position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);*/
     background-color: whitesmoke;
     padding: 1rem 30px 1rem 30px;
     border-radius: 5px;
@@ -59,4 +60,22 @@
 
   #PatDetails{
     display: none;
+  }
+
+  #ResDetails {
+    display: none;
+  }
+
+   .timeLineLeft {
+    border-right: 2px solid;
+    border-bottom: 1px solid #ddd;
+    text-align: end;
+  }
+
+  .timeLineRight {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .cardHeader {
+    text-align: center;
   }
